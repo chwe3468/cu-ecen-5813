@@ -1,19 +1,19 @@
 # cu-ecen-5813-project-1
-##**Title:** 
+## Title:**
 PES Project 1 Readme <br/>
-##**Name:** 
+## **Name:** 
 Curry Buscher, Chutao Wei <br/>
-##**Repository Comments:** 
+## **Repository Comments:** 
 This repository contains 3 programs (see more details in PES Project 1.pdf) <br/>
-##**Project Comments:** 
+## **Project Comments:** 
 No issues so far <br/>
-##**Installation/Execution/Editing Notes:**<br/>
-###**Language:**
+## **Installation/Execution/Editing Notes:**<br/>
+### **Language:**
 C<br/>
-###**Compiler:**
+### **Compiler:**
 GCC version 7.4.0<br/>
-###**Environment:**
+### **Environment:**
 Ubuntu 18.04.1<br/>
-###**License:**
+### **License:**
 MIT<br/>
 
