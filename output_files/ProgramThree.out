@@ -1,8 +1,0 @@
-Original value is: 0xFACE
-binary value: 0b1110 which is true
-Reverse byte value is: 0xECAF
-binary value: 0b1111 which is true
-Rotate shift left 6 bits value is: 0x2BC0
-binary value: 0b0000 which is false
-Rotate shift right 4 bits value is: 0x2BC
-binary value: 0b1100 which is false
