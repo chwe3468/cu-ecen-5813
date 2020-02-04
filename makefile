@@ -13,19 +13,27 @@ OBJ1 = program_1.o
 OBJ2 = program_2.o
 OBJ3 = program_3.o
 
-all: program_1 program_2 program_3 
+all: program_2 program_3 
 
-%.o: %.c $(DEPS)
-	$(XCC) 	-c -o $@ $<  $(CFLAGS)
 
 program_1: $(OBJ1)
 	$(XCC) -o $@ $^ $(CFLAGS)
+program_1.o: program_1.c $(DEPS)
+	$(XCC) 	-c -o $@ $<  $(CFLAGS)
+
 
 program_2: $(OBJ2)
 	$(XCC) -o $@ $^ $(CFLAGS)
+program_2.o: program_2.c $(DEPS)
+	$(XCC) 	-c -o $@ $<  $(CFLAGS)
+
+
 
 program_3: $(OBJ3)
 	$(XCC) -o $@ $^ $(CFLAGS)
+program_3.o: program_3.c $(DEPS)
+	$(XCC) 	-c -o $@ $<  $(CFLAGS)
+
 
 clean:
 	-rm -f program_3 *.o *.s
