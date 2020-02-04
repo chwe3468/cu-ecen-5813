@@ -9,12 +9,22 @@ CFLAGS  = # Compiler Flags
 LDFLAGS = -lc # Linker Flags
 
 DEPS = # header files
-OBJ = program_3.o
+OBJ1 = program_1.o
+OBJ2 = program_2.o
+OBJ3 = program_3.o
+
+all: program_1 program_2 program_3 
 
 %.o: %.c $(DEPS)
 	$(XCC) 	-c -o $@ $<  $(CFLAGS)
 
-program_3: $(OBJ)
+program_1: $(OBJ1)
+	$(XCC) -o $@ $^ $(CFLAGS)
+
+program_2: $(OBJ2)
+	$(XCC) -o $@ $^ $(CFLAGS)
+
+program_3: $(OBJ3)
 	$(XCC) -o $@ $^ $(CFLAGS)
 
 clean:

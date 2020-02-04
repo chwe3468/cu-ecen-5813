@@ -27,7 +27,7 @@
 /**** ch function ****/
 void check_0b1111(uint16_t num)
 {
-	if (num == 0b1111)
+	if ((num == 0b1111)|| (num == 0b1110) || (num == 0b1101) || (num == 0b1011) || (num == 0b0111))
 	{
 		printf(" which is true\n");
 	}
