@@ -5,12 +5,12 @@
 #include <math.h>
 
 
-//edited from https://www.geeksforgeeks.org/program-decimal-binary-conversion/
+
 void octal_dec_hex(FILE * fp,int n, int opSize) 
 { 
+
     n=abs(n);
     int m=pow(2,opSize)-1;
-    printf("!!!!!!!!!!!!!!!!!!!!!!!!!%i\n",m);
     if(n<(pow(2,opSize))){
         fprintf(fp, "Octal (abs)\t\t0%o\t0%o\t%o\n", abs(n), m, 0);
         fprintf(fp, "Decimal (abs)\t\t%d\t%d\t%d\n", abs(n), m, 0);
@@ -24,6 +24,7 @@ void octal_dec_hex(FILE * fp,int n, int opSize)
     return;
 } 
 
+//edited from https://www.geeksforgeeks.org/program-decimal-binary-conversion/
 void decToBin(FILE * fp,int n, int opSize) 
 { 
     int value=n;
@@ -32,8 +33,6 @@ void decToBin(FILE * fp,int n, int opSize)
     char str[opSize+1];
     memset(str, '0', sizeof(str)-1);
     str[sizeof(str)-1] = '\0';
-    
-    printf("%s\n",str);
     
     // array to store binary number 
     char binaryNum[opSize+1];
@@ -54,16 +53,13 @@ void decToBin(FILE * fp,int n, int opSize)
         n = n / 2; 
         i++; 
     } 
-
-    printf("%s\n",binaryNum);
-    printf("x%d\n",(int) sizeof(binaryNum));
   
     // printing binary array in reverse order 
     for (int j = 0; j < sizeof(binaryNum)-1; j++){
-        str[opSize-j-1]= binaryNum[j]; //2 for 0b
-        printf("%s\n",str);
+        str[opSize-j-1]= binaryNum[j];
     }
     
+    //Binary
     //max
     char max[opSize+1];
     memset(max, '1', sizeof(max)-1);
@@ -73,9 +69,7 @@ void decToBin(FILE * fp,int n, int opSize)
     char min[opSize+1];
     memset(min, '0', sizeof(min)-1);
     min[sizeof(min)-1] = '\0';
-    
-    printf("!!!!!!!!!!%i\n",n);
-    printf("!!!!!!!!!!%i\n",opSize);
+
     if(abs(value)<(pow(2,opSize))){
         fprintf(fp,"Binary (abs) 0b%s\t0b%s\t0b%s\n",str,max,min);
     }
@@ -84,6 +78,9 @@ void decToBin(FILE * fp,int n, int opSize)
     }
     octal_dec_hex(fp,value,opSize);
     
+
+
+    //Signed One's Complement
     memset(max, '1', sizeof(max)-1);
     max[sizeof(max)-1] = '\0';
     max[0]='0';
@@ -115,9 +112,12 @@ void decToBin(FILE * fp,int n, int opSize)
     
     signed_Twos(fp,value,opSize);
     
+
+    //Sign-Magnitude
     for (int i=0;i<opSize;i++){
         newstr[i]=str[i];
     }
+
     memset(min, '1', sizeof(min)-1);
     lower=-(pow(2,opSize)/2)+1;
     if (value>=lower && value<=higher){
@@ -145,8 +145,6 @@ void signed_Twos(FILE *fp, int n, int opSize){
     memset(str, '0', sizeof(str)-1);
     str[sizeof(str)-1] = '\0';
     
-    printf("%s\n",str);
-    
     // array to store binary number 
     char binaryNum[opSize+1];
     memset(binaryNum, '0', sizeof(binaryNum)-1);
@@ -167,13 +165,10 @@ void signed_Twos(FILE *fp, int n, int opSize){
         i++; 
     } 
 
-    printf("%s\n",binaryNum);
-    printf("x%d\n",(int) sizeof(binaryNum));
   
     // printing binary array in reverse order 
     for (int j = 0; j < sizeof(binaryNum)-1; j++){
-        str[opSize-j-1]= binaryNum[j]; //2 for 0b
-        printf("%s\n",str);
+        str[opSize-j-1]= binaryNum[j];
     }
     
     //max
@@ -210,23 +205,23 @@ int main(int argc,char *argv[]){
         int radix=input[i][1];
         int operand=input[i][2];
         if (operand!=4 && operand!=8 && operand!=16 || radix!=8 && radix!=10 && radix!=16 || value>pow(2,operand)-1){
-            
-            fprintf(fp,"Binary (abs)\t\tERROR\tERROR\tERROR\n");    
+
+            fprintf(fp, "Input:  Value %6d\tRadix %d\tOperand Size %d", itoa(value,buff,radix), radix, operand);
+            fprintf(fp, "Binary (abs)\t\tERROR\tERROR\tERROR\n");    
             fprintf(fp, "Octal (abs)\t\tERROR\tERROR\tERROR\n");
             fprintf(fp, "Decimal (abs)\t\tERROR\tERROR\tERROR\n");
             fprintf(fp, "Hexadecimal (abs)\t\tERROR\tERROR\tERROR\n");
-        
-            fprintf(fp,"Signed One's Compliment\tERROR\tERROR\tERROR\n");
-    
-        
-            fprintf(fp,"Signed Two's Compliment\tERROR\tERROR\tERROR\n");
-            fprintf(fp,"Sign-Magnitude\t\tERROR\tERROR\tERROR\n");
-            fprintf(fp,"\n\n");
+            fprintf(fp, "Signed One's Compliment\tERROR\tERROR\tERROR\n");
+            fprintf(fp, "Signed Two's Compliment\tERROR\tERROR\tERROR\n");
+            fprintf(fp, "Sign-Magnitude\t\tERROR\tERROR\tERROR\n");
+            fprintf(fp, "\n\n");
     
         }
         else{
+
+            fprintf(fp, "Input:  Value %6d\tRadix %d\tOperand Size %d", itoa(value,buff,radix), radix, operand);
             decToBin(fp,value,operand);
-            fprintf(fp,"\n\n");
+            fprintf(fp, "\n\n");
         }
     }
     return 0;
