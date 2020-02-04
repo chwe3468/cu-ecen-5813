@@ -7,6 +7,8 @@ Curry Buscher, Chutao Wei <br/>
 This repository contains 3 programs (see more details in PES Project 1.pdf) <br/>
 **Project Comments:** 
 No issues so far <br/>
+Programs 1,2 by Curry <br/>
+Program 3 by Chutao <br/>
 ### **Installation/Execution/Editing Notes:**<br/>
 **Language:**
 C<br/>
