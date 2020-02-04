@@ -13,23 +13,23 @@ OBJ1 = program_1.o
 OBJ2 = program_2.o
 OBJ3 = program_3.o
 
-all: program_2 program_3 
+all: one two three 
 
 
-program_1: $(OBJ1)
+one: $(OBJ1)
 	$(XCC) -o $@ $^ $(CFLAGS)
 program_1.o: program_1.c $(DEPS)
 	$(XCC) 	-c -o $@ $<  $(CFLAGS)
 
 
-program_2: $(OBJ2)
+two: $(OBJ2)
 	$(XCC) -o $@ $^ $(CFLAGS)
 program_2.o: program_2.c $(DEPS)
 	$(XCC) 	-c -o $@ $<  $(CFLAGS)
 
 
 
-program_3: $(OBJ3)
+three: $(OBJ3)
 	$(XCC) -o $@ $^ $(CFLAGS)
 program_3.o: program_3.c $(DEPS)
 	$(XCC) 	-c -o $@ $<  $(CFLAGS)
