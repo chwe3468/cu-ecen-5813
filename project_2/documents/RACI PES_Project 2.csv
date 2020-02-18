@@ -1,0 +1,40 @@
+Task,Chutao Wei ,Curry Buscher
+Readme.md,RACI,
+Code.pdf,RACI,
+Program 1: FB-RUN,,RACI
+main.c,,RACI
+Timer.h,,RACI
+Timer.c,,RACI
+GPIO.h,,RACI
+GPIO.c,,RACI
+Create LED.c,,RACI
+Create LED.h,,RACI
+makefile,,RACI
+Program 2: FB-DEBUG,,RACI
+main.c,,RACI
+Add Logging message for Timer.c,,RACI
+Add Logging message for GPIO.c,,RACI
+Add Logging message for LED.c,,RACI
+log.h,,RACI
+log.c,,RACI
+Program 3: PC-RUN,RACI,
+makefile,RACI,
+main.c,RACI,
+new task,RACI,
+new task,RACI,
+Create Timer.h,RACI,
+Create Timer.c,RACI,
+Create LED.h,RACI,
+Create LED.c,RACI,
+Program 4: PC-DEBUG,RACI,
+main.c,RACI,
+Add Logging message for Timer.c,RACI,
+Add Logging message for Timer.c,RACI,
+Add Logging message for LED.c,RACI,
+log.c,RACI,
+log.h,RACI,
+makefile,RACI,
+EC(maybe??): ,,
+WBS creation,RACI,
+,,
+FYI RACI means:,Responsible Accountable Consulted Informed,
