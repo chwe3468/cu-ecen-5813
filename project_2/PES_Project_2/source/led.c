@@ -39,54 +39,62 @@ void turn_LED_project2_pattern(void)
 	uint32_t pattern[8] = {500, 500, 1000, 500, 2000, 500, 3000, 500};
 
 	uint32_t i = 0;
-	uint32_t c = 0;
-	uint32_t color_index = 0;
-	for(i=0; i<8; i++)
-	{
-		if((i&0x1)){ //if odd turn on else turn off according to color_index
-			if (color_index==0){
-				printf("LED RED ON");
-			}
-			else if(color_index==1){
-				printf("LED GREEN ON");
-			}
-			else{
-				printf("LED BLUE ON");
-			}
-		}
-		else{
-			if (color_index==0){
-				printf("LED RED OFF");
-			}
-			else if(color_index==1){
-				printf("LED GREEN OFF");
-			}
-			else{
-				printf("LED BLUE OFF");
-			}
-		}
-		// Can only change color if loop count is even
-		if (!(i&0x1))
+	int32_t c = 0;
+	int32_t color_index = 0;
+	while(1){
+		for(i=0; i<8; i++)
 		{
-			if(PC){
-				if (c%6==0){
-					if (color_index==2){
-						color_index=-1;
-					}
-					color_index++;
-					c=-1;
+			if(!(i&0x1)){ //if even turn on else turn off according to color_index
+				if (color_index==0){
+					printf("LED RED ON\n");
+					change_LED_color(red);
+				}
+				else if(color_index==1){
+					printf("LED GREEN ON\n");
+					change_LED_color(green);
+				}
+				else{
+					printf("LED BLUE ON\n");
+					change_LED_color(blue);
 				}
 			}
 			else{
-			// change the LED color is touched
-			change_LED_color(Touch_Scan_Position());
+				if (color_index==0){
+					printf("LED RED OFF\n");
+					//turn_LED_red(off);
+				}
+				else if(color_index==1){
+					printf("LED GREEN OFF\n");
+					//turn_LED_green(off);
+				}
+				else{
+					printf("LED BLUE OFF\n");
+					//turn_LED_blue(off);
+				}
 			}
+			// Can only change color if loop count is even
+			if (!(i&0x1))
+			{
+				if(PC){
+					if (c>=6){
+						if (color_index>=2){
+							color_index=-1;
+						}
+						color_index++;
+						c=-1;
+					}
+				}
+				else{
+				// change the LED color is touched
+				change_LED_color(Touch_Scan_Position());
+				}
+			}
+			// toggle LED
+			turn_LED(toggle);
+			// delay for a while
+			delay_ms(pattern[i]);
+			c++;
 		}
-		// toggle LED
-		turn_LED(toggle);
-		// delay for a while
-		delay_ms(pattern[i]);
-		c++;
 	}
 }
 

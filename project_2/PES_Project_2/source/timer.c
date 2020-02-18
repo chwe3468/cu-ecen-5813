@@ -13,14 +13,14 @@
 
 /*************** Define *****************/
 #if PC_RUN
-#define CPU_FREQ_MHZ	(2808U)
+#define CPU_FREQ_MHZ	(48U)
 #else
 #define CPU_FREQ_MHZ	(48U)
 #endif
 
 #define NUM_ASSE_FOR	(7U)
 #define DELAY_MS_TO_LOOP_COUNT(msec)\
-	((uint64_t)((msec*(CPU_FREQ_MHZ*1000U))/(NUM_ASSE_FOR)))
+	((uint32_t)((msec*(CPU_FREQ_MHZ*1000U))/(NUM_ASSE_FOR)))
 
 
 
@@ -37,8 +37,8 @@ const uint32_t delay_look_up_table[] = {
 void delay_ms(uint32_t msec)
 {
 	LOG_DEBUG("Blocking wait for %d msec", msec);
-	uint64_t i = 0;
-	uint64_t delay_count = 0;
+	uint32_t i = 0;
+	uint32_t delay_count = 0;
 	if (msec == 500)
 	{
 		delay_count = delay_look_up_table[0];
