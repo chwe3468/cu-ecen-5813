@@ -1,4 +1,0 @@
-led.c:19:6:init_LED	8	static
-led.c:26:6:turn_LED_red	16	static
-led.c:46:6:turn_LED_green	16	static
-led.c:66:6:turn_LED_blue	16	static

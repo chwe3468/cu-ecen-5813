@@ -1,0 +1,7 @@
+led.c:27:6:init_LED	8	static
+led.c:75:6:change_LED_color	0	static
+led.c:80:6:turn_LED_red	8	static
+led.c:102:6:turn_LED_green	8	static
+led.c:124:6:turn_LED_blue	8	static
+led.c:55:6:turn_LED	8	static
+led.c:34:6:turn_LED_project2_parrtern	48	static

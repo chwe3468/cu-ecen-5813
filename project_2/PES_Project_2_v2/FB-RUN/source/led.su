@@ -1,7 +1,0 @@
-led.c:29:6:init_LED	8	static
-led.c:36:6:turn_LED_project2_pattern	64	static
-led.c:103:6:turn_LED	16	static
-led.c:123:6:change_LED_color	16	static
-led.c:128:6:turn_LED_red	16	static
-led.c:150:6:turn_LED_green	16	static
-led.c:172:6:turn_LED_blue	16	static
