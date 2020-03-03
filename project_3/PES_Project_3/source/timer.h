@@ -1,0 +1,33 @@
+/*
+ * timer.h
+ *
+ *  Created on: Feb 11, 2020
+ *      Author: chutao
+ */
+
+#ifndef TIMER_H_
+#define TIMER_H_
+
+
+/*************** Include *****************/
+
+#include <stdint.h>
+#include "MKL25Z4.h"
+
+
+/*************** Define *****************/
+
+#define CPU_FREQ_MHZ	(48)
+#define NUM_ASSE_FOR	(7)
+
+
+/*************** Prototype *****************/
+
+/*************************************************
+ * @brief
+ *   Block delay for msec amount of microsecond
+ ************************************************/
+void delay_ms(uint32_t msec);
+
+
+#endif /* TIMER_H_ */
