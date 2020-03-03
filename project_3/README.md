@@ -3,9 +3,9 @@
 PES Project 3 Readme <br/>
 **Name:** 
 Curry Buscher, Chutao Wei <br/>
-**Repository Comments:** 
+**Repository Comments:** <br/>
 In documents folder: <br/>
-There are PES Project 3.pdf, and UML_diagram.jpg
+There are PES Project 3.pdf, and UML_diagram.jpg<br/>
 In source folder: <br/>
 main.c: main function wrapper has two versions. One runs the test script without command line, one require user to put in command in console.<br/>
 memory_utility.c/h: contains all memory utility functions.<br/>
