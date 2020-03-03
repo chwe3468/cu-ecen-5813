@@ -7,16 +7,16 @@ Curry Buscher, Chutao Wei <br/>
 In documents folder: <br/>
 There are PES Project 3.pdf, and UML_diagram.jpg
 In source folder: <br/>
-main.c: main function wrapper has two versions. One runs the test script without command line, one require user to put in command in console.
-memory_utility.c/h: contains all memory utility functions.
-pattern_gen.c/h: generate random byte array using linear feedback shit register
-led.c/h: contains RGB LED control functions
-time.c/h: contains only blocking delay function for now
-gpio.c/h: contains gpio control functions
-logger.c/h: contains debug printing function
+main.c: main function wrapper has two versions. One runs the test script without command line, one require user to put in command in console.<br/>
+memory_utility.c/h: contains all memory utility functions.<br/>
+pattern_gen.c/h: generate random byte array using linear feedback shit register<br/>
+led.c/h: contains RGB LED control functions<br/>
+time.c/h: contains only blocking delay function for now<br/>
+gpio.c/h: contains gpio control functions<br/>
+logger.c/h: contains debug printing function<br/>
 (see more details in PES Project 3.pdf) <br/>
 **Project Comments:** 
-UART sometimes does not work <br/>
+Please use semihost <br/>
 
 ### **Installation/Execution/Editing Notes:**<br/>
 
