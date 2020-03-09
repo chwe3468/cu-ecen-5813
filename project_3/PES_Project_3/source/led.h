@@ -51,14 +51,6 @@ void init_LED(void);
 
 /*************************************************
  * @brief
- *   Turn LED on/off using pattern specified in
- *   PES project 2.pdf
- ************************************************/
-void turn_LED_project2_parrtern(void);
-
-
-/*************************************************
- * @brief
  *   Turn LED either on/off/toggle, the color
  *   depends on the state variable "color" defined
  *   in Global Variable section of led.c. If you

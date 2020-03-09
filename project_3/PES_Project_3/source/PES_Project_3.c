@@ -46,7 +46,9 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 #include "memory_utility.h"
-
+#include "command_parser.h"
+#include "led.h"
+#include "timer.h"
 
 /********************** Define ***********************/
 
@@ -65,7 +67,7 @@ typedef union {
   void * (*allocate_bytes)(size_t num_bytes);
   mem_status_t (*free_allocated)(void * data);
   mem_status_t (*verify_memory)(void * data);
-  mem_status_t (*display_memory)(void * data, uint32_t num_bytes);
+  mem_status_t (*display_memory)(void * data, size_t num_bytes);
   mem_status_t (*write_memory)(void * data, uint8_t offset,
 			size_t num_bytes, uint8_t * bytes);
   mem_status_t (*invert_block)(void * data, uint8_t offset,
@@ -87,9 +89,14 @@ int main(void) {
     BOARD_InitBootPeripherals();
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
-
+    init_LED();
     PRINTF("Hello, PES Project 3\n");
 
+    // turn LED blue before start the test
+	turn_LED_blue(toggle);
+	delay_ms(500);
+	turn_LED_blue(toggle);
+	delay_ms(500);
 #ifndef COMMAND_VERSION
     int num_FAILED = 0;
 	//Allocate a 32 byte region in the heap
@@ -244,107 +251,110 @@ int main(void) {
 #endif
 
 #ifdef COMMAND_VERSION
-    size_t bufsize = 32;
-    //size_t len;
-    char *line = (char *)malloc(bufsize * sizeof(char));
-    char *p=line;
-    // Initialize Input Line String pointer
-    //char * line = (char*)malloc( 65 * sizeof(char) );
-    char *command = (char*)malloc( 5 * sizeof(char) );
-    char *arg1 = (char*)malloc( 5 * sizeof(char) );
-    char *arg2 = (char*)malloc( 5 * sizeof(char) );
-    char *arg3 = (char*)malloc( 50 * sizeof(char) );
-    char *args[4]={command, arg1, arg2, arg3};
-    while (args[0][0]!='Q') {
-        //printf("%d|%s",len,line);
-        p=line;
-        while((*p++ = getchar())!= '\n');
-        *p = '\0';
-        int comma_count=0;
-        int i=0;
-        while(line[i]){
-            if (line[i]==',' || line[i]=='\n' || line[i]=='\0'){
-                strncpy(args[comma_count], line,i);
-                comma_count=(comma_count+1)%4;
-                if (line[i]!='\n' || line[i]!='\0'){
-                    line=line+i+1;
-                    i=0;
-                }
-            }
-            i++;
-        }        printf("\n--%s,%s,%s,%s--\n",args[0],args[1],args[2],args[3]);
-        //cmd_func cmd;        printf("args[0] is %s",args[1]);
-        switch (args[0][0])
-        {
-            case 'a':
-            case 'A': // code to be executed if n = 1;
-                //cmd.allocate_bytes=&my_allocate_bytes;
-            	PRESS;
-                //xxx=*cmd.allocate_bytes(args[1]);
-                break;
-            case 'f':
-            case 'F': // code to be executed if n = 2;
-                //cmd.free_allocated=&my_free_allocated;
-                PRESS;
-                //*cmd.free_allocated(xxx);
-                break;
-            case 'm':
-            case 'M': // code to be executed if n = 1;
-                //cmd.verify_memory=&my_verify_memory;
-                PRESS;
-                //*cmd.verify_memory(xxx);
-                break;
-            case 'd':
-            case 'D': // code to be executed if n = 2;
-                //cmd.display_memory=&my_display_memory;
-                PRESS;
-                //*cmd.display_memory(xxx,args[1]);
-                break;
-            case 'w':
-            case 'W': // code to be executed if n = 1;
-                //cmd.write_memory=&my_write_memory;
-                PRESS;
-                uint8_t *hex;
-                sscanf(args[3], "%x", hex);
-                //*cmd.write_memory(xxx,args[1],args[2], hex);
-                break;
-            case 'i':
-            case 'I': // code to be executed if n = 2;
-                //cmd.invert_block=&my_invert_block;
-                PRESS;
-                //*cmd.invert_block(xxx,args[1],args[2]);
-                break;
-            case 'p':
-            case 'P': // code to be executed if n = 2;
-                //cmd.write_pattern=&my_write_pattern;
-                printf("press ENTER to continue\n");
-                getchar(); //wait for enter to continue to next line
-                //*cmd.write_pattern(xxx,args[1],args[2]);
-                break;
-            case 'c':
-            case 'C': // code to be executed if n = 2;
-                //cmd.compare_pattern=&my_compare_pattern;
-                PRESS;
-                //*cmd.compare_pattern(xxx,args[1],args[2]);
-                break;
-            default: // code to be executed if n doesn't match any cases
-                printf("invalid command\n");
-        }
-        memset(command,'\0',5);
-        memset(arg1,'\0',5);
-        memset(arg2,'\0',5);
-        memset(arg3,'\0',50);
-    }
-    if (line)
-        free(line);
-    if (command)
-        free(command);
-    if (arg1)
-        free(arg1);
-    if (arg2)
-        free(arg2);
-    if (arg3)
-        free(arg3);
+	while (1)
+	{
+
+		command_struct_t user_input;
+		command_parser(&user_input);
+
+		cmd_func cmd;
+		void * xxx;
+		mem_status_t error=SUCCESS;
+
+		uint8_t hex_bytes[4];
+		hex_bytes[0] = user_input.hex_value;
+		hex_bytes[1] = user_input.hex_value>>8;
+		hex_bytes[2] = user_input.hex_value>>16;
+		hex_bytes[3] = user_input.hex_value>>24;
+
+		switch (user_input.command)
+		{
+			case 'a':
+			case 'A':
+				cmd.allocate_bytes=&allocate_bytes;
+				PRESS;
+				xxx = (cmd.allocate_bytes(user_input.num_bytes));
+				if(xxx == NULL)
+				{
+					error=FAILED;
+				}
+				break;
+			case 'f':
+			case 'F':
+				cmd.free_allocated=&free_allocated;
+				PRESS;
+				error = (cmd.free_allocated(xxx));
+				break;
+			case 'm':
+			case 'M':
+				cmd.verify_memory=&verify_memory;
+				PRESS;
+				error = (cmd.verify_memory(xxx));
+				break;
+			case 'd':
+			case 'D':
+				cmd.display_memory=&display_memory;
+				//PRESS;
+				error = (cmd.display_memory(xxx, user_input.num_bytes));
+				break;
+			case 'w':
+			case 'W':
+				cmd.write_memory=&write_memory;
+				PRESS;
+				error = (cmd.write_memory(
+						xxx,
+						user_input.offset,
+						user_input.num_bytes,
+						hex_bytes));
+				break;
+			case 'i':
+			case 'I':
+				cmd.invert_block=&invert_block;
+				PRESS;
+				error = (cmd.invert_block(
+						xxx,
+						user_input.offset,
+						user_input.num_bytes));
+				break;
+			case 'p':
+			case 'P':
+				cmd.write_pattern=&write_pattern;
+				PRESS;
+				error = (cmd.write_pattern(
+						xxx,
+						0,
+						user_input.num_bytes,
+						user_input.seed));
+				break;
+			case 'c':
+			case 'C':
+				cmd.compare_pattern=&compare_pattern;
+				PRESS;
+				error = (cmd.compare_pattern(
+						xxx,
+						0,
+						user_input.num_bytes,
+						user_input.seed));
+				break;
+			default: // code to be executed if n doesn't match any cases
+				printf("invalid command\n");
+		}
+		if (error)
+		{
+			turn_LED_red(toggle);
+			delay_ms(500);
+			turn_LED_red(toggle);
+			delay_ms(500);
+		}
+		else
+		{
+			turn_LED_green(toggle);
+			delay_ms(500);
+			turn_LED_green(toggle);
+			delay_ms(500);
+		}
+	}
+
 #endif
 	return 0;
 }

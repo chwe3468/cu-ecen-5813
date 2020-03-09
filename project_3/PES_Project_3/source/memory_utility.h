@@ -36,15 +36,6 @@ typedef enum mem_status
 
 /*************** Prototype *****************/
 
-
-
-
-
-
-
-
-
-
 /*************************************************
  * @brief
  *   Allocate (size_t num_bytes) using malloc
@@ -76,7 +67,7 @@ mem_status_t verify_memory(void * data);
  *   value, BIT31~24, BIT23~16, BIT15~8, BIT7~0.
  *   No pointer would be given by
  ************************************************/
-mem_status_t display_memory(void * data, uint32_t num_bytes);
+mem_status_t display_memory(void * data, size_t num_bytes);
 
 /*************************************************
  * @brief
