@@ -43,6 +43,8 @@ typedef struct command_struct
  *   W,12,2,0xFFEE is: Write the hex value 0xFFEE
  *   to 2 bytes of allocated memory starting at
  *   byte 12
+ * @return
+ *   Number of user inputs separated my comma
  ************************************************/
 int command_parser(command_struct_t * user_input);
 

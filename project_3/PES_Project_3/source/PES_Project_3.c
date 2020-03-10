@@ -52,7 +52,7 @@
 
 /********************** Define ***********************/
 
-#define COMMAND_VERSION
+//#define COMMAND_VERSION
 //#define BUTTON
 #ifdef BUTTON
 #define PRESS printf("press ENTER to continue");getchar()
