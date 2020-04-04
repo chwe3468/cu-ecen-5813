@@ -48,7 +48,9 @@ void RunStateCentric(tMachine *currentMachine){
 		}
 	}
 }
-kReadXYZ, kProcessDisplay, kSensorDisconnect, kWaitPollSlider
+
+
+//kReadXYZ, kProcessDisplay, kSensorDisconnect, kWaitPollSlider
 void RunTableDriven(tMachine *currentMachine){
 	sStateTableEntry *currentState= stateTable[kReadXYZ];
 	while (*currentMachine==1){
@@ -61,8 +63,9 @@ void RunTableDriven(tMachine *currentMachine){
 	}
 }
 
-void HandleEventComplete(struct sStateTableEntry *currentState){
 
+
+void HandleEventComplete(struct sStateTableEntry *currentState){
 	currentState=currentState->Complete;
 }
 void HandleEventTimeout_1_5(struct sStateTableEntry *currentState){

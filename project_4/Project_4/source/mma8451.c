@@ -7,7 +7,7 @@
 //adapted from https://github.com/alexander-g-dean/ESF/blob/master/NXP/Code/Chapter_8/I2C-Demo/
 
 
-#include <MKL25Z4.H>
+#include <MKL25Z4.h>
 #include "mma8451.h"
 #include "i2c.h"
 #include "delay.h"

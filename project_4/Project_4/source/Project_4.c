@@ -32,20 +32,35 @@
  * @file    Project_4.c
  * @brief   Application entry point.
  */
+
+/********************** Include ***********************/
+
+// Standard Libs
 #include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+
+// board related
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "MKL25Z4.h"
+
+// fsl
 #include "fsl_debug_console.h"
-/* TODO: insert other include files here. */
 
-/* TODO: insert other definitions and declarations here. */
+// our own code
+#include "led.h"
+#include "timer.h"
+#include "touch_sen.h"
 
-/*
- * @brief   Application entry point.
- */
+
+/********************** Define ***********************/
+
+
+/********************** Main ***********************/
 int main(void) {
 
   	/* Init board hardware. */
@@ -54,17 +69,12 @@ int main(void) {
     BOARD_InitBootPeripherals();
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
+    init_LED();
+    PRINTF("Hello, PES Project 4\n");
 
-    PRINTF("Hello World\n");
-
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
+    /* Enter an infinite loop */
     while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
+
     }
 
 
