@@ -12,9 +12,14 @@
 //https://stackoverflow.com/questions/133214/is-there-a-typical-state-machine-implementation-pattern/44955234
 
 /********************** Enumeration ***********************/
+
+#include <stdlib.h>
+
+/********************** Enumeration ***********************/
+
 typedef enum{ mStateCentric, mTableDriven} tMachine;
 typedef enum{ kReadXYZ, kProcessDisplay, kSensorDisconnect, kWaitPollSlider, NUM_STATES} tState;
-typedef enum{ complete, timeout_1_5, timout_6, leftSlider, rightSlider, disconnected} tEvents;
+typedef enum{ complete, timeout_1_5, timeout_6, leftSlider, rightSlider, disconnected} tEvent;
 typedef struct instance_data instance_data_t;
 
 /********************** Structure ***********************/
@@ -28,16 +33,16 @@ struct sStateTableEntry stateTable[] = {
 		{kWaitPollSlider, kProcessDisplay, kProcessDisplay, kProcessDisplay, kProcessDisplay, kProcessDisplay}, //processDisplay
 		{NULL, NULL, NULL, NULL, NULL, NULL}, //SensorDisconnect
 		{kWaitPollSlider, kReadXYZ, kReadXYZ, kReadXYZ, NULL, kWaitPollSlider} //WaitPollSLider
-	}
+};
 
 struct sStateTableEntry{
 	//tState current_state;       	// all states have associated lights
-	tState Complete;
-	tState Timeout_1_5;
-	tState Timeout_6;
-	tState LeftSlider;
-	tState RightSlider;
-	tState Disconnected;
+	tEvent complete;
+	tEvent timeout_1_5;
+	tEvent timeout_6;
+	tEvent leftSlider;
+	tEvent rightSlider;
+	tEvent disconnected;
 };
 
 

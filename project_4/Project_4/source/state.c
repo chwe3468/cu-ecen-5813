@@ -20,6 +20,9 @@ void RunStateCentric(tMachine *currentMachine){
 		//event=state=getEvent()
 		switch(*currentState){
 			case kReadXYZ:
+				/* Handel Event */
+				/* Prepare for new state */
+				/* Set new state*/
 				if (event==complete){
 
 				}
