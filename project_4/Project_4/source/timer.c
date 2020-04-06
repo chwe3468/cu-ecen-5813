@@ -9,6 +9,7 @@
 
 #include <logger.h>
 #include <stdint.h>
+#include <MKL25Z4.h>
 
 
 /*************** Define *****************/
@@ -56,3 +57,21 @@ void delay_ms(uint32_t msec)
 	}
 	for(i=0; i<delay_count; i++);
 }
+
+void Init_SysTick(void) {
+	SysTick->LOAD = (48000000L / 6);
+	NVIC_SetPriority(SysTick_IRQn, 3);
+	SysTick->VAL = 0;
+	SysTick->CTRL = SysTick_CTRL_TICKINT_Msk |\
+ SysTick_CTRL_ENABLE_Msk;
+}
+
+void SysTick_Handler() {
+	static int n = 0;
+	if (n<5){
+
+	}
+	Control_RGB_LEDs(n & 1, n & 1, n & 1);
+	n++;
+}
+

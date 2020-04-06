@@ -10,7 +10,7 @@
 
 //adapted from
 //https://stackoverflow.com/questions/133214/is-there-a-typical-state-machine-implementation-pattern/44955234
-
+//https://kjarvel.wordpress.com/2011/10/26/table-driven-state-machine-using-function-pointers-in-c/
 /********************** Enumeration ***********************/
 
 #include <stdlib.h>
@@ -18,49 +18,53 @@
 /********************** Enumeration ***********************/
 
 typedef enum{ mStateCentric, mTableDriven} tMachine;
-typedef enum{ kReadXYZ, kProcessDisplay, kSensorDisconnect, kWaitPollSlider, NUM_STATES} tState;
-typedef enum{ complete, timeout_1_5, timeout_6, leftSlider, rightSlider, disconnected} tEvent;
-typedef struct instance_data instance_data_t;
+typedef enum{ kReadXYZ, kProcessDisplay, kWaitPollSlider, NUM_STATES} tState;
+typedef enum{ Complete, Timeout_1_5, Timeout_6, LeftSlider, RightSlider, Start} tEvent;
 
 /********************** Structure ***********************/
 
-typedef state_t state_func_t(instance_data_t *data);
+//#define
 
+typedef void state_func();
 
-struct sStateTableEntry stateTable[] = {
-		//complete, timeout_1_5, timout_6, left_slider, right_slider, disconnected
-		{kProcessDisplay, kReadXYZ, kReadXYZ, kReadXYZ, kReadXYZ, kSensorDisconnect}, //readXYZ
-		{kWaitPollSlider, kProcessDisplay, kProcessDisplay, kProcessDisplay, kProcessDisplay, kProcessDisplay}, //processDisplay
-		{NULL, NULL, NULL, NULL, NULL, NULL}, //SensorDisconnect
-		{kWaitPollSlider, kReadXYZ, kReadXYZ, kReadXYZ, NULL, kWaitPollSlider} //WaitPollSLider
-};
+void state_ReadXYZ();
+void state_Display();
+void state_WaitPoll();
+void SetEvent(tEvent evt);
 
 struct sStateTableEntry{
 	//tState current_state;       	// all states have associated lights
-	tEvent complete;
-	tEvent timeout_1_5;
-	tEvent timeout_6;
-	tEvent leftSlider;
-	tEvent rightSlider;
-	tEvent disconnected;
+	tEvent Complete;
+	tEvent Timeout_1_5;
+	tEvent Timeout_6;
+	tEvent LeftSlider;
+	tEvent RightSlider;
+	state_func *func_p;
+};
+
+struct sStateTableEntry stateTable[] = {
+		//complete, timeout_1_5, timout_6, left_slider, right_slider, state_func
+		{kProcessDisplay, kReadXYZ, kReadXYZ, kReadXYZ, kReadXYZ, state_ReadXYZ}, //readXYZ
+		{kWaitPollSlider, kProcessDisplay, kProcessDisplay, kProcessDisplay, kProcessDisplay, state_Display}, //processDisplay
+		{kWaitPollSlider, kReadXYZ, kReadXYZ, kReadXYZ, NULL, state_WaitPoll} //WaitPollSLider
 };
 
 
 /********************** Prototype ***********************/
 
 /* Two different State Machine */
-void RunStateCentric(tMachine *currentMachine);
-void RunTableDriven(tMachine *currentMachine);
+void RunMachines();
+void RunStateCentric();
+void RunTableDriven();
 
 /* Event Handlers */
-void HandleAllEvents(tState *currentState);
-
-void HandleEventComplete(struct sStateTableEntry *currentState);
-void HandleEventTimeout_1_5(struct sStateTableEntry *currentState);
-void HandleEventTimeout_6(struct sStateTableEntry *currentState);
-void HandleEventLeftSlider(struct sStateTableEntry *currentState);
-void HandleEventRightSlider(struct sStateTableEntry *currentState);
-void HandleEventDisconnected(struct sStateTableEntry *currentState);
+//void HandleAllEvents(tState *currentState);
+void HandleEventComplete();
+void HandleEventTimeout_1_5();
+void HandleEventTimeout_6();
+void HandleEventLeftSlider();
+void HandleEventRightSlider();
+void HandleEventDisconnected();
 
 
 #endif /* STATE_H_ */
