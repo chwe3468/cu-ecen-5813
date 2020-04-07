@@ -6,6 +6,7 @@
  */
 //adapted from https://github.com/alexander-g-dean/ESF/blob/master/NXP/Code/Chapter_8/I2C-Demo/
 #include <stdint.h>
+#include <MKL25Z4.h>
 
 #define I2C_M_START 	I2C0->C1 |= I2C_C1_MST_MASK
 #define I2C_M_STOP  	I2C0->C1 &= ~I2C_C1_MST_MASK

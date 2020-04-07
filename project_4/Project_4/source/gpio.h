@@ -16,11 +16,11 @@
 /********************** Typedef ***********************/
 
 /* Enum for pin direction */
-typedef enum _gpio_pin_direction
+typedef enum _gpio_pin_direct
 {
 	GPIO_DigitalInput = 0U,
 	GPIO_DigitalOutput = 1U
-}gpio_pin_direction_t;
+}gpio_pin_direct_t;
 
 
 /********************** Prototype ***********************/
@@ -31,7 +31,7 @@ typedef enum _gpio_pin_direction
  *   (in case if output is selected as direction)
  ************************************************/
 void init_GPIO_Pin(GPIO_Type *base, uint32_t pin,
-		gpio_pin_direction_t pin_direction, uint8_t pin_data);
+		gpio_pin_direct_t pin_direction, uint8_t pin_data);
 
 
 /*************************************************

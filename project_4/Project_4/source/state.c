@@ -113,3 +113,4 @@ void HandleEventRightSlider(void){
 	exit(0);
 	//currentState=currentState->RightSlider;
 }
+

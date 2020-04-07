@@ -32,35 +32,22 @@
  * @file    Project_4.c
  * @brief   Application entry point.
  */
-
-/********************** Include ***********************/
-
-// Standard Libs
 #include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
-// board related
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "MKL25Z4.h"
-
-// fsl
 #include "fsl_debug_console.h"
-
-// our own code
+#include "i2c.h"
+#include "gpio.h"
 #include "led.h"
-#include "timer.h"
+#include "mma8451.h"
 #include "touch_sen.h"
-
-
-/********************** Define ***********************/
-
-
-/********************** Main ***********************/
+#include "timer.h"
+/*
+ * @brief   Application entry point.
+ */
 int main(void) {
 
   	/* Init board hardware. */
@@ -69,15 +56,30 @@ int main(void) {
     BOARD_InitBootPeripherals();
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
+
+    /* Init Systick */
+    Init_SysTick();
+
+    /* Init LED */
     init_LED();
+
+    /* Init Touch Sensor */
+    Touch_Init();
+
+    /* Init MMA8451 */
+    i2c_init();
+    if(init_mma8451())
+    {
+    	PRINTF("MMA8451 connection error\n");;
+    }
     PRINTF("Hello, PES Project 4\n");
 
     /* Enter an infinite loop */
-    while(1) {
-
+    while(1)
+    {
+    	read_xyz();
+    	convert_xyz_to_roll_pitch();
     }
-
-
-
     return 0 ;
 }
+

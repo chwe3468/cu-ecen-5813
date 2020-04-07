@@ -25,9 +25,17 @@
 
 /*************************************************
  * @brief
+ *   Initialize Systick timer for 1 msec period
+ *   counting. This period timer is also used for
+ *   mdelay to track counter value
+ ************************************************/
+void Init_SysTick(void);
+
+/*************************************************
+ * @brief
  *   Block delay for msec amount of microsecond
  ************************************************/
-void delay_ms(uint32_t msec);
+void mdelay(uint32_t msec);
 
 
 #endif /* TIMER_H_ */

@@ -33,7 +33,7 @@ void toggle_GPIO_Pinout(GPIO_Type *port, uint32_t pin)
 }
 
 void init_GPIO_Pin(GPIO_Type *port, uint32_t pin,
-		gpio_pin_direction_t pin_direction, uint8_t pin_data)
+		gpio_pin_direct_t pin_direction, uint8_t pin_data)
 {
 	if (pin_direction == GPIO_DigitalInput)
 	{
