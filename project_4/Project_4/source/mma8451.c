@@ -10,7 +10,7 @@
 #include <MKL25Z4.h>
 #include "mma8451.h"
 #include "i2c.h"
-#include "delay.h"
+//#include "delay.h"
 #include <math.h>
 
 int16_t acc_X=0, acc_Y=0, acc_Z=0;

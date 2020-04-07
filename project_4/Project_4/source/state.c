@@ -6,12 +6,14 @@
  */
 
 #include "state.h"
-
+#include <stdio.h>
 //from slides L16
 
 tEvent event=Start;
 tMachine machine=mStateCentric;
-static int x,y,z;
+tState currentState= kReadXYZ;
+
+//static int x,y,z;
 
 void state_ReadXYZ(){
 	//readxyz
@@ -39,14 +41,13 @@ void RunMachines(){
 
 void RunStateCentric(){
 //	sStateTableEntry *currentState= stateTable[kReadXYZ];
-	tState currentState= kReadXYZ;
-	while (machine=mStateCentric){
+	while (machine==mStateCentric){
 		//event=state=getEvent()
-		tableDriven[currentState].func_p();
+		stateTable[currentState].func_p();
 		switch(currentState){
 		case kReadXYZ:
 			/* Handel Event */
-			/* Prepare for new state */
+			/* Prepare for new  state */
 			/* Set new state*/
 			if (event==Complete){
 				HandleEventComplete();
@@ -85,9 +86,8 @@ void RunStateCentric(){
 //kReadXYZ, kProcessDisplay, kSensorDisconnect, kWaitPollSlider
 void RunTableDriven(tMachine *currentMachine){
 	//sStateTableEntry *currentState= stateTable[kReadXYZ];
-	tState currentState= kReadXYZ;
 	while (machine==mTableDriven){
-		tableDriven[currentState].func_p();
+		stateTable[currentState].func_p();
 		HandleEventComplete();
 		HandleEventTimeout_1_5();
 		HandleEventTimeout_6();
@@ -100,13 +100,13 @@ void HandleEventComplete(void){
 	currentState=stateTable[currentState].Complete;
 }
 void HandleEventTimeout_1_5(void){
-	currentState=stateTable[currentState].Timout_1_5;
+	currentState=stateTable[currentState].Timeout_1_5;
 }
 void HandleEventTimeout_6(void){
-	currentState=stateTable[currentState].Timout_6;
+	currentState=stateTable[currentState].Timeout_6;
 }
 void HandleEventLeftSlider(void){
-	machine!=machine;
+	machine=!machine;
 	currentState=stateTable[currentState].LeftSlider;
 }
 void HandleEventRightSlider(void){
