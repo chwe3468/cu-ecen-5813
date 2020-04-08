@@ -8,30 +8,23 @@
 #ifndef STATE_H_
 #define STATE_H_
 
-#include <stdlib.h>
 //adapted from
 //https://stackoverflow.com/questions/133214/is-there-a-typical-state-machine-implementation-pattern/44955234
 //https://kjarvel.wordpress.com/2011/10/26/table-driven-state-machine-using-function-pointers-in-c/
-/********************** Enumeration ***********************/
 
+/********************** Include ***********************/
 
+#include <stdlib.h>
 
 /********************** Enumeration ***********************/
 
 typedef enum{ mStateCentric, mTableDriven} tMachine;
-typedef enum{ kReadXYZ, kProcessDisplay, kWaitPollSlider, NUM_STATES} tState;
+typedef enum{ kReadXYZ, kProcessDisplay, kWaitPollSlider} tState;
 typedef enum{ Complete, Timeout_1_5, Timeout_6, LeftSlider, RightSlider, Start} tEvent;
 
 /********************** Structure ***********************/
 
-//#define
-
 typedef void state_func();
-
-void state_ReadXYZ();
-void state_Display();
-void state_WaitPoll();
-void SetEvent(tEvent evt);
 
 struct sStateTableEntry{
 	//tState current_state;       	// all states have associated lights
@@ -43,15 +36,14 @@ struct sStateTableEntry{
 	state_func *func_p;
 };
 
-struct sStateTableEntry stateTable[] = {
-		//complete, timeout_1_5, timout_6, left_slider, right_slider, state_func
-		{kProcessDisplay, kReadXYZ, kReadXYZ, kReadXYZ, kReadXYZ, state_ReadXYZ}, //readXYZ
-		{kWaitPollSlider, kProcessDisplay, kProcessDisplay, kProcessDisplay, kProcessDisplay, state_Display}, //processDisplay
-		{kWaitPollSlider, kReadXYZ, kReadXYZ, kReadXYZ, kReadXYZ, state_WaitPoll} //WaitPollSLider
-};
-
 
 /********************** Prototype ***********************/
+
+/* State Machine function */
+void state_ReadXYZ();
+void state_Display();
+void state_WaitPoll();
+void SetEvent(tEvent evt);
 
 /* Two different State Machine */
 void RunMachines();

@@ -39,6 +39,8 @@
 #include "clock_config.h"
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
+
+
 #include "i2c.h"
 #include "gpio.h"
 #include "led.h"
@@ -72,6 +74,7 @@ int main(void) {
     {
     	PRINTF("MMA8451 connection error\n");;
     }
+
     PRINTF("Hello, PES Project 4\n");
 
     /* Enter an infinite loop */
