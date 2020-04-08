@@ -11,9 +11,14 @@ main.c: main function wrapper has two versions. One runs the test script without
 memory_utility.c/h: contains all memory utility functions.<br/>
 pattern_gen.c/h: generate random byte array using linear feedback shit register<br/>
 led.c/h: contains RGB LED control functions<br/>
-time.c/h: contains only blocking delay function for now<br/>
+timer.c/h: contains only blocking delay function for now<br/>
 gpio.c/h: contains gpio control functions<br/>
-logger.c/h: contains debug printing function<br/>
+state.c/h: state machine function<br/>
+touch_sen.c/h: contains touch sensor printing function<br/>
+mma8451.c/h: contains mma8451 accelerameter function<br/>
+test.c: contains test function for uCUnit testfunction<br/>
+uCUnit.c/h: uCUnit test function<br/>
+System.c/h: System for uCUnit<br/>
 (see more details in PES Project 4.pdf) <br/>
 **Project Comments:** 
 Please use semihost <br/>
