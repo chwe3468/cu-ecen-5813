@@ -14,9 +14,14 @@
 
 #include "MKL25Z4.h"
 
+/********************** Define ***********************/
+// please only define one of it
+//#define L_M_R_POSITION_MODE
+#define L_R_POSITION_MODE
 
 /********************** Typedef ***********************/
 
+#ifdef L_M_R_POSITION_MODE
 /* enum for slider position */
 typedef enum _tsi_position
 {
@@ -25,6 +30,17 @@ typedef enum _tsi_position
 	right = 2U
 }tsi_position_t;
 
+#endif
+
+#ifdef L_R_POSITION_MODE
+/* enum for slider position */
+typedef enum _tsi_position
+{
+	left = 0U,
+	right = 1U,
+	unknown = 2U
+}tsi_position_t;
+#endif
 
 /*************** Define *****************/
 

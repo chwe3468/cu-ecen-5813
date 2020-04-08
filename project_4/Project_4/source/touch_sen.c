@@ -12,9 +12,18 @@
 #include "fsl_debug_console.h"
 #include "logger.h"
 
-tsi_position_t position;
-const char * position_string[3] ={"left","middle","right"};
 
+//#define INCLUDE_LOG_DEBUG 1
+
+
+tsi_position_t position;
+#ifdef L_M_R_POSITION_MODE
+const char * position_string[3] ={"left","middle","right"};
+#endif
+
+#ifdef L_R_POSITION_MODE
+const char * position_string[3] ={"left","right"};
+#endif
 
 // TSI initialization function
 void Touch_Init()
@@ -74,6 +83,7 @@ tsi_position_t Touch_Scan_Position(void)
 
 	LOG_DEBUG("LH_value: %d, HL_value: %d", LH_value, HL_value);
 
+#ifdef L_M_R_POSITION_MODE
 	// Check the capacitance, and decide the position
 	if ((LH_value>50) && (LH_value<350) && (HL_value>50) && (HL_value<350))
 	{
@@ -88,6 +98,28 @@ tsi_position_t Touch_Scan_Position(void)
 		position = right;
 	}
 	LOG_DEBUG("Slider Position is  %s", position_string[position]);
+#endif
+
+
+#ifdef L_R_POSITION_MODE
+	// Check the capacitance, and decide the position
+	if ((LH_value>0) && (LH_value<1000) && (HL_value>0) && (HL_value<1000))
+	{
+		position = left;
+	}
+	else if ((LH_value>1100) && (LH_value<3000) && (HL_value>1100) && (HL_value<3000))
+	{
+		position = right;
+	}
+	else
+	{
+		position = unknown;
+		LOG_DEBUG("Slider Position is a little off, calibration needed, default to left");
+	}
+	LOG_DEBUG("Slider Position is  %s", position_string[position]);
+#endif
+
 	return (position);
+
 }
 

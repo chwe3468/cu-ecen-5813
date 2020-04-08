@@ -47,6 +47,7 @@
 #include "mma8451.h"
 #include "touch_sen.h"
 #include "timer.h"
+#include "state.h"
 /*
  * @brief   Application entry point.
  */
@@ -64,24 +65,31 @@ int main(void) {
 
     /* Init LED */
     init_LED();
-
+    turn_LED_blue(on);
     /* Init Touch Sensor */
     Touch_Init();
 
-    /* Init MMA8451 */
+    /* Init i2c for MMA8451 */
     i2c_init();
-    if(init_mma8451())
-    {
-    	PRINTF("MMA8451 connection error\n");;
-    }
 
     PRINTF("Hello, PES Project 4\n");
 
+	/* Init MMA8451 */
+    if(init_mma8451())
+    {
+    	PRINTF("MMA8451 connection error\n");
+    	// if connection error, just halt the program
+    	// and turn LED red
+    	turn_LED_blue(off);
+    	turn_LED_red(on);
+    	while(1);
+    }
+    turn_LED_blue(off);
+    turn_LED_green(on);
     /* Enter an infinite loop */
     while(1)
     {
-    	read_xyz();
-    	convert_xyz_to_roll_pitch();
+    	RunMachines();
     }
     return 0 ;
 }

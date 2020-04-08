@@ -72,11 +72,9 @@ void read_xyz(void);
 
 /*************************************************
  * @brief
- *   math conversion for xyz to pitch,roll
+ *   print xyz dataset using LOG_INFO
+ *   as required by PES project_4
  ************************************************/
-void convert_xyz_to_roll_pitch(void);
-
-extern float roll, pitch;
-extern int16_t acc_x, acc_y, acc_z;
+void display_dataset(void);
 
 #endif

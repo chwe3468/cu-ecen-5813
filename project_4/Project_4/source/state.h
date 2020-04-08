@@ -18,22 +18,32 @@
 
 /********************** Enumeration ***********************/
 
-typedef enum{ mStateCentric, mTableDriven} tMachine;
-typedef enum{ kReadXYZ, kProcessDisplay, kWaitPollSlider} tState;
-typedef enum{ Complete, Timeout_1_5, Timeout_6, LeftSlider, RightSlider, Start} tEvent;
+typedef enum{
+	mStateCentric = 0,
+	mTableDriven = 1
+} tMachine;
+typedef enum{
+	kReadXYZ = 0,
+	kProcessDisplay = 1,
+	kWaitPollSlider = 2,
+	kEnd = 3,
+	kError = 4
+} tState;
+typedef enum{
+	Complete = 0,
+	Timeout_1_5 = 1,
+	Timeout_6 = 2,
+	LeftSlider = 3,
+	RightSlider = 4
+} tEvent;
 
 /********************** Structure ***********************/
 
 typedef void state_func();
 
 struct sStateTableEntry{
-	//tState current_state;       	// all states have associated lights
-	tEvent Complete;
-	tEvent Timeout_1_5;
-	tEvent Timeout_6;
-	tEvent LeftSlider;
-	tEvent RightSlider;
-	state_func *func_p;
+	state_func *func_p; // action correspond to the state
+	tState next_state[6];
 };
 
 
@@ -43,21 +53,23 @@ struct sStateTableEntry{
 void state_ReadXYZ();
 void state_Display();
 void state_WaitPoll();
+void state_End();
+void state_Error();
 void SetEvent(tEvent evt);
 
 /* Two different State Machine */
-void RunMachines();
-void RunStateCentric();
-void RunTableDriven();
+void RunMachines(void);
+void RunStateCentric(void);
+void RunTableDriven(void);
 
 /* Event Handlers */
 //void HandleAllEvents(tState *currentState);
-void HandleEventComplete();
-void HandleEventTimeout_1_5();
-void HandleEventTimeout_6();
-void HandleEventLeftSlider();
-void HandleEventRightSlider();
-void HandleEventDisconnected();
+void HandleEventComplete(void);
+void HandleEventTimeout_1_5(void);
+void HandleEventTimeout_6(void);
+void HandleEventLeftSlider(void);
+void HandleEventRightSlider(void);
+void HandleEventDisconnected(void);
 
 
 #endif /* STATE_H_ */
