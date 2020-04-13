@@ -53,27 +53,39 @@ void state_WaitPoll(){
 	// wait until SysTick_Handler set timeout event flag
 	uint32_t left_pos_count = 0;
 	uint32_t right_pos_count = 0;
+	uint32_t unknown_pos_count = 0;
 	while(event == Complete)
 	{
+		int x;
+		for(x=0;x<48000;x++);
 		// keep polling slider position
 		tsi_position_t pos = Touch_Scan_Position();
 		if (pos == left)
 			left_pos_count++;
 		else if (pos == right)
 			right_pos_count++;
+		else
+			unknown_pos_count++;
+
 	}
 
-	if (left_pos_count > right_pos_count)
+	if ((left_pos_count > right_pos_count)||(left_pos_count > unknown_pos_count))
 		final_pos = left;
-	else if (left_pos_count < right_pos_count)
+	else if ((right_pos_count > left_pos_count)||(right_pos_count > unknown_pos_count))
 		final_pos = right;
 	else
-		final_pos = left;
-	// if slider is right or event is timeout_6
-	if ((final_pos == right) || (event == Timeout_6))
+		final_pos = unknown;
+	// if slider is left or event is timeout_6
+	if ((final_pos == left) || (event == Timeout_6))
 	{
 		// change to the other state machine
 		machine = machine ^ 0x1;
+	}
+	// if slider is right
+	if (final_pos == right)
+	{
+		// change to the kend state
+		currentState = kEnd;
 	}
 }
 
@@ -108,6 +120,7 @@ void RunMachines(void){
 
 void RunStateCentric(void){
 	//sStateTableEntry *currentState= stateTable[kReadXYZ];
+	LOG_DEBUG("current state is %d", currentState);
 	/* Do the action in this state */
 	stateTable[currentState].func_p();
 
@@ -118,7 +131,7 @@ void RunStateCentric(void){
 			HandleEventComplete();
 		}
 		else{
-			printf("last event is %d",(int)event);
+			LOG_ERROR("last event is %d",(int)event);
 		}
 		break;
 	case kProcessDisplay:
@@ -126,7 +139,7 @@ void RunStateCentric(void){
 			HandleEventComplete();
 		}
 		else{
-			printf("last event is %d",(int)event);
+			LOG_ERROR("last event is %d",(int)event);
 		}
 		break;
 	case kWaitPollSlider:

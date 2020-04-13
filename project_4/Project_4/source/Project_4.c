@@ -48,6 +48,7 @@
 #include "touch_sen.h"
 #include "timer.h"
 #include "state.h"
+#include "logger.h"
 /*
  * @brief   Application entry point.
  */
@@ -77,7 +78,7 @@ int main(void) {
 	/* Init MMA8451 */
     if(init_mma8451())
     {
-    	PRINTF("MMA8451 connection error\n");
+    	LOG_ERROR("MMA8451 connection error\n");
     	// if connection error, just halt the program
     	// and turn LED red
     	turn_LED_blue(off);

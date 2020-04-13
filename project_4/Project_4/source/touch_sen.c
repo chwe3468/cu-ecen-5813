@@ -76,7 +76,7 @@ int Touch_Scan_HL(void)
 // Function to scan the position of slider
 tsi_position_t Touch_Scan_Position(void)
 {
-	LOG_DEBUG("Scan Capacitance");
+	LOG_DEBUG("Scan Capacitance:");
 	// read capacitance value
 	int LH_value = Touch_Scan_LH();
 	int HL_value = Touch_Scan_HL();
@@ -103,7 +103,7 @@ tsi_position_t Touch_Scan_Position(void)
 
 #ifdef L_R_POSITION_MODE
 	// Check the capacitance, and decide the position
-	if ((LH_value>0) && (LH_value<1000) && (HL_value>0) && (HL_value<1000))
+	if ((LH_value>50) && (LH_value<1000) && (HL_value>50) && (HL_value<1000))
 	{
 		position = left;
 	}
