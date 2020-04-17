@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include "logger.h"
 
+#include "timer.h"
 
 /********************** Global ***********************/
 
@@ -17,6 +18,16 @@ log_status_t log_status = disable;
 
 
 /********************** Functions ***********************/
+
+/**
+ * @return a timestamp value for the logger, typically based on a free running timer.
+ * This will be printed at the beginning of each log message.
+ */
+uint32_t loggerGetTimestamp(void)
+{
+	return timerGetRunTimeMilliseconds();
+}
+
 void Log_enable(void)
 {
 	log_status = enable;

@@ -107,3 +107,20 @@ void mdelay(uint32_t msec)
 	delay_flag = true;
 }
 #endif
+
+/***************************************************************************//**
+ * @brief
+ *   get the time had been run since powered up
+ *
+ * @note
+ *   Please #include config.h
+ *   Now only based on 1000 Hz clock,
+ *
+ * @return
+ *   runtime [in unit ms]
+ ******************************************************************************/
+uint32_t timerGetRunTimeMilliseconds(void)
+{
+	return ((uint32_t)(msec_count));
+}
+

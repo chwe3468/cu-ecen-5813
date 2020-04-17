@@ -52,6 +52,12 @@
 /*
  * @brief   Application entry point.
  */
+
+//#define DEBUG_MODE
+#define NORMAL_MODE
+//#define TEST_MODE
+
+
 int main(void) {
 
   	/* Init board hardware. */
@@ -66,31 +72,31 @@ int main(void) {
 
     /* Init LED */
     init_LED();
-    turn_LED_blue(on);
-    /* Init Touch Sensor */
-    Touch_Init();
 
-    /* Init i2c for MMA8451 */
-    i2c_init();
+    PRINTF("Hello, PES Project 5\n");
+    PRINTF("LED will blink green for a sec for indicate correct start\n");
 
-    PRINTF("Hello, PES Project 4\n");
-
-	/* Init MMA8451 */
-    if(init_mma8451())
-    {
-    	LOG_ERROR("MMA8451 connection error\n");
-    	// if connection error, just halt the program
-    	// and turn LED red
-    	turn_LED_blue(off);
-    	turn_LED_red(on);
-    	while(1);
-    }
-    turn_LED_blue(off);
     turn_LED_green(on);
+    mdelay(1000);
+    turn_LED_green(off);
+
     /* Enter an infinite loop */
     while(1)
     {
-    	RunMachines();
+#ifdef DEBUG_MODE
+#endif
+#ifdef NORMAL_MODE
+#ifdef ECHO_MODE
+
+#endif
+
+#ifdef
+
+#endif
+#endif
+#ifdef TEST_MODE
+#endif
+
     }
     return 0 ;
 }
