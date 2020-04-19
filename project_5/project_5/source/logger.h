@@ -76,12 +76,12 @@ typedef enum log_status
 #define LOG_DEBUG_CODE(code)
 #endif
 
-
+uint32_t loggerGetTimestamp();
 #if INCLUDE_LOGGING
 #define LOG_DO(message,level, ...) \
-	printf( "%5"PRIu32":%s:%s: " message "\n", loggerGetTimestamp(), level, __func__, ##__VA_ARGS__ )
+	printf( "%u"":%s:%s: " message "\n", loggerGetTimestamp(), level, __func__, ##__VA_ARGS__ )
 void logInit();
-uint32_t loggerGetTimestamp();
+
 #else
 /**
  * Remove all logging related code on builds where logging is not enabled

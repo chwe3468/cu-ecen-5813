@@ -17,7 +17,7 @@
 /*************** Global Varibles *****************/
 
 led_color_t color = red;
-const char * led_color_string[3] ={"on","off","toggle"};
+const char * led_color_string[3] ={"off","on","toggle"};
 
 
 /*************** Function *****************/

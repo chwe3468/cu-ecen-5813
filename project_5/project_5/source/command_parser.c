@@ -20,12 +20,12 @@
 
 
 /********************** Function ***********************/
-int command_parser (command_struct_t * user_input)
+void command_parser(void)
 {
 	// Initialize char array
-	char str[MAX_USER_BUF];
+	uint8_t str[MAX_USER_BUF];
 
-	int i=0;
+	uint8_t i = 0;
 	//takes all the characters until enter is pressed
 	while((str[i]=getchar())!='\n'){
 		//increment the index of the character array
@@ -33,42 +33,41 @@ int command_parser (command_struct_t * user_input)
 		// protect against long input
 		if(i == MAX_USER_BUF-1)
 		{
-		    str[MAX_USER_BUF-1] = '\0';
+		    str[MAX_USER_BUF-1] = '\n';
+		    break;
 		}
 	}
 
+	i = 0;
+	uint8_t char_count[255];
+	memset(char_count,0,255);
+	// go through the string
+	while(str[i]!='\n')
+	{
+		// count which character is incremented
+		char_count[str[i]]++;
+		i++;
+	}
 
-	int arg_index = 0;
-	uint32_t hex = 0;
-    char * pch[MAX_USER_ARG];
-    /* Split User input string  */
-    pch[arg_index] = strtok (str," ,");
-    while (pch[arg_index] != NULL)
-    {
-        //printf ("%s\n",pch[arg_index]);
-    	switch (arg_index)
-        {
-            case 0:
-                user_input->command = pch[arg_index][0];
-                break;
-            case 1:
-                user_input->num_bytes = atoi(pch[arg_index]);
-                break;
-            case 2:
-                user_input->offset = atoi(pch[arg_index]);
-                break;
-            case 3:
-                sscanf(pch[arg_index], "%x", &hex);
-                user_input->hex_value = hex;
-                break;
-            default:
-                printf("error state in command parser\n");
-                break;
-        }
-        // do the next argument
-        arg_index++;
-        pch[arg_index] = strtok (NULL, " ,");
-    }
-
-    return arg_index;
+	// print them out
+	i = 'A';
+	while(i<='Z')
+	{
+		if(char_count[i]!=0)
+		{
+			printf("%c - %u; ",i,char_count[i]);
+		}
+		i++;
+	}
+	i = 'a';
+	while(i<='z')
+	{
+		if(char_count[i]!=0)
+		{
+			printf("%c - %u; ",i,char_count[i]);
+		}
+		i++;
+	}
+	printf("\n");
+	printf("\n");
 }

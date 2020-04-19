@@ -28,7 +28,7 @@
  *   User_input: "Cha"
  *   output:C – 1; a – 2; h – 1;
  ************************************************/
-int command_parser(command_struct_t * user_input);
+void command_parser(void);
 
 
 #endif /* COMMAND_PARSER_H_ */

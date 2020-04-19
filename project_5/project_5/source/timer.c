@@ -13,8 +13,7 @@
 #include "state.h"
 
 /*************** Define *****************/
-
-#define INCLUDE_LOG_DEBUG 1
+#define BLOCK_WAITING
 #define CPU_FREQ_MHZ	(48)
 #define NUM_ASSE_FOR	(7)
 #define DELAY_MS_TO_LOOP_COUNT(msec)\

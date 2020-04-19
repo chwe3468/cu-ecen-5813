@@ -49,6 +49,7 @@
 #include "timer.h"
 #include "state.h"
 #include "logger.h"
+#include "command_parser.h"
 /*
  * @brief   Application entry point.
  */
@@ -57,6 +58,8 @@
 #define NORMAL_MODE
 //#define TEST_MODE
 
+#define ECHO_SUBMODE
+//#define APPL_SUBMODE
 
 int main(void) {
 
@@ -74,7 +77,7 @@ int main(void) {
     init_LED();
 
     PRINTF("Hello, PES Project 5\n");
-    PRINTF("LED will blink green for a sec for indicate correct start\n");
+    PRINTF("LED will blink green for a sec to indicate correct start\n");
 
     turn_LED_green(on);
     mdelay(1000);
@@ -86,12 +89,13 @@ int main(void) {
 #ifdef DEBUG_MODE
 #endif
 #ifdef NORMAL_MODE
-#ifdef ECHO_MODE
+
+#ifdef ECHO_SUBMODE
 
 #endif
 
-#ifdef
-
+#ifdef APPL_SUBMODE
+    	command_parser();
 #endif
 #endif
 #ifdef TEST_MODE
