@@ -77,7 +77,7 @@ int main(void) {
     init_LED();
 
     PRINTF("Hello, PES Project 5\n");
-    PRINTF("LED will blink green for a sec to indicate correct start\n");
+    PRINTF("LED will blink green for a sec to indicate 	 start\n");
 
     turn_LED_green(on);
     mdelay(1000);
@@ -86,18 +86,29 @@ int main(void) {
     /* Enter an infinite loop */
     while(1)
     {
+    	// DEBUG MODE
 #ifdef DEBUG_MODE
+
+#define INCLUDE_LOG_DEBUG 1
+#ifdef ECHO_SUBMODE
 #endif
+
+#ifdef APPL_SUBMODE
+    	command_parser();
+#endif
+
+#endif
+    	// NORMAL MODE
 #ifdef NORMAL_MODE
 
 #ifdef ECHO_SUBMODE
-
 #endif
 
 #ifdef APPL_SUBMODE
     	command_parser();
 #endif
 #endif
+    	// TEST MODE
 #ifdef TEST_MODE
 #endif
 
