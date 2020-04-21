@@ -1,6 +1,6 @@
 led.c:25:6:init_LED	8	static
-led.c:33:6:turn_LED	16	static
+led.c:33:6:turn_LED	48	static
 led.c:53:6:change_LED_color	16	static
-led.c:58:6:turn_LED_red	16	static
-led.c:80:6:turn_LED_green	16	static
-led.c:102:6:turn_LED_blue	16	static
+led.c:58:6:turn_LED_red	48	static
+led.c:80:6:turn_LED_green	48	static
+led.c:102:6:turn_LED_blue	48	static

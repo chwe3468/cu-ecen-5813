@@ -12,7 +12,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "led.h"
+#include "logger.h"
 /********************** Define ***********************/
 #define MAX_USER_BUF 64
 #define MAX_USER_ARG 4
@@ -26,6 +27,7 @@ void command_parser(void)
 	uint8_t str[MAX_USER_BUF];
 
 	uint8_t i = 0;
+    turn_LED_blue(on);
 	//takes all the characters until enter is pressed
 	while((str[i]=getchar())!='\n'){
 		//increment the index of the character array
@@ -34,9 +36,11 @@ void command_parser(void)
 		if(i == MAX_USER_BUF-1)
 		{
 		    str[MAX_USER_BUF-1] = '\n';
+		    LOG_ERROR("user input too long, the rest of the string will be counted next time \n");
 		    break;
 		}
 	}
+	turn_LED_blue(off);
 
 	i = 0;
 	uint8_t char_count[255];
@@ -48,6 +52,7 @@ void command_parser(void)
 		char_count[str[i]]++;
 		i++;
 	}
+	turn_LED_green(on);
 
 	// print them out
 	i = 'A';
@@ -70,4 +75,5 @@ void command_parser(void)
 	}
 	printf("\n");
 	printf("\n");
+	turn_LED_green(off);
 }

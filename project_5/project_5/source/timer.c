@@ -31,8 +31,7 @@ const uint32_t delay_look_up_table[] = {
 uint64_t msec_count = 0;
 uint64_t target_msec_count = 0;
 bool delay_flag = 0;
-/* Time out count for kWaitPollSlider state */
-uint8_t timeout_count = 0;
+
 /*************** Interrupt Hanlder ****************/
 
 void SysTick_Handler(void)
@@ -43,16 +42,6 @@ void SysTick_Handler(void)
 		if (msec_count == target_msec_count)
 		{
 			delay_flag = false;
-			timeout_count++;
-			if (timeout_count == 6)
-			{
-				timeout_count = 0;
-				SetEvent(Timeout_6);
-			}
-			else
-			{
-				SetEvent(Timeout_1_5);
-			}
 		}
 	}
 }
@@ -61,7 +50,7 @@ void SysTick_Handler(void)
 
 void Init_SysTick(void) {
 	SysTick->LOAD = (48000L-1L);// count 1 msec
-	NVIC_SetPriority(SysTick_IRQn, 3); // enable NVIC
+	NVIC_SetPriority(SysTick_IRQn, 4); // enable NVIC
 	SysTick->VAL = (480000L-1L); // reset count value
 	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk;
 
@@ -118,8 +107,8 @@ void mdelay(uint32_t msec)
  * @return
  *   runtime [in unit ms]
  ******************************************************************************/
-uint32_t timerGetRunTimeMilliseconds(void)
+uint64_t timerGetRunTimeMilliseconds(void)
 {
-	return ((uint32_t)(msec_count));
+	return msec_count;
 }
 

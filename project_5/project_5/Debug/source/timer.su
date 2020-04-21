@@ -1,5 +1,5 @@
 core_cm0plus.h:804:22:NVIC_SetPriority	24	static
-timer.c:38:6:SysTick_Handler	16	static
-timer.c:62:6:Init_SysTick	8	static
-timer.c:72:6:mdelay	24	static
-timer.c:121:10:timerGetRunTimeMilliseconds	12	static
+timer.c:37:6:SysTick_Handler	12	static
+timer.c:51:6:Init_SysTick	8	static
+timer.c:61:6:mdelay	56	static
+timer.c:110:10:timerGetRunTimeMilliseconds	12	static

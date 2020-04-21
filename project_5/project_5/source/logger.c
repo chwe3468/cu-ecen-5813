@@ -25,7 +25,27 @@ log_status_t log_status = disable;
  */
 uint32_t loggerGetTimestamp(void)
 {
-	return timerGetRunTimeMilliseconds();
+	return (uint32_t)(timerGetRunTimeMilliseconds());
+}
+uint32_t loggerGetTimestampHour()
+{
+	uint64_t msec = timerGetRunTimeMilliseconds();
+	return (uint32_t)(msec/360000);
+}
+uint32_t loggerGetTimestampMinute()
+{
+	uint64_t msec = timerGetRunTimeMilliseconds();
+	return (uint32_t)(msec/6000);
+}
+uint32_t loggerGetTimestampSecond()
+{
+	uint64_t msec = timerGetRunTimeMilliseconds();
+	return (uint32_t)(msec/1000);
+}
+uint32_t loggerGetTimestampTenthSec()
+{
+	uint64_t msec = timerGetRunTimeMilliseconds();
+	return (uint32_t)(msec/100);
 }
 
 void Log_enable(void)

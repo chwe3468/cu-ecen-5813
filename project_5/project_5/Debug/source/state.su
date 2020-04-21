@@ -4,8 +4,8 @@ state.c:49:6:state_WaitPoll	40	static
 state.c:92:6:state_End	8	static
 state.c:99:6:state_Error	8	static
 state.c:104:6:SetEvent	16	static
-state.c:109:6:RunMachines	24	static
-state.c:121:6:RunStateCentric	24	static
+state.c:109:6:RunMachines	40	static
+state.c:121:6:RunStateCentric	40	static
 state.c:171:6:RunTableDriven	8	static
 state.c:180:6:HandleEventComplete	8	static
 state.c:183:6:HandleEventTimeout_1_5	8	static

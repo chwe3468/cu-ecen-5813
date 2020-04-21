@@ -5,4 +5,4 @@ mma8451.c:59:5:init_mma8451	24	static
 mma8451.c:76:5:verify_connect_mma8451	24	static
 mma8451.c:92:6:read_full_xyz	32	static
 mma8451.c:132:6:read_xyz	8	static
-mma8451.c:156:6:display_dataset	40	static
+mma8451.c:156:6:display_dataset	64	static

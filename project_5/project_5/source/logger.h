@@ -29,15 +29,12 @@
  *   * To turn on for all files #define INCLUDE_LOG_DEBUG 1 in the project configuration.
  */
 
-
-/********************** Include ***********************/
-
 #ifndef SRC_LOG_H_
 #define SRC_LOG_H_
+/********************** Include ***********************/
 #include <stdio.h>
 #include <stdint.h>
 #include "fsl_debug_console.h"
-
 
 /********************** Typedef ***********************/
 
@@ -49,6 +46,9 @@ typedef enum log_status
 
 
 /********************** Define ***********************/
+
+#define HMS_FORMAT
+
 
 #ifndef LOG_ERROR
 #define LOG_ERROR(message,...) \
@@ -77,9 +77,23 @@ typedef enum log_status
 #endif
 
 uint32_t loggerGetTimestamp();
+uint32_t loggerGetTimestampHour();
+uint32_t loggerGetTimestampMinute();
+uint32_t loggerGetTimestampSecond();
+uint32_t loggerGetTimestampTenthSec();
 #if INCLUDE_LOGGING
+#ifdef HMS_FORMAT
+#define LOG_DO(message,level, ...) \
+	printf( "%02d:%02d:%02d.%01d"":%s:%s: " message "\n", \
+			loggerGetTimestampHour(), \
+			loggerGetTimestampMinute(), \
+			loggerGetTimestampSecond(), \
+			loggerGetTimestampTenthSec(), \
+			level, __func__, ##__VA_ARGS__ )
+#else
 #define LOG_DO(message,level, ...) \
 	printf( "%u"":%s:%s: " message "\n", loggerGetTimestamp(), level, __func__, ##__VA_ARGS__ )
+#endif
 void logInit();
 
 #else

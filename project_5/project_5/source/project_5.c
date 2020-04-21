@@ -52,17 +52,17 @@
 #include "command_parser.h"
 #include "buffer.h"
 #include "test.h"
+
 /*
  * @brief   Application entry point.
  */
 
-#define UNITTEST 1
 
 //#define DEBUG_MODE
-#define NORMAL_MODE
-//#define TEST_MODE
+//#define NORMAL_MODE
+#define TEST_MODE
 
-#define ECHO_SUBMODE
+//#define ECHO_SUBMODE
 //#define APPL_SUBMODE
 
 int main(void) {
@@ -80,16 +80,12 @@ int main(void) {
     /* Init LED */
     init_LED();
 
-    PRINTF("Hello, PES Project 5\n");
-    PRINTF("LED will blink green for a sec to indicate 	 start\n");
+    LOG_INFO("Hello, PES Project 5\n");
+    LOG_INFO("LED will blink green for a sec to indicate start\n");
 
     turn_LED_green(on);
     mdelay(1000);
     turn_LED_green(off);
-
-    if (UNITTEST){
-    	Test();
-    }
 
     /* Enter an infinite loop */
     while(1)
@@ -118,6 +114,7 @@ int main(void) {
 #endif
     	// TEST MODE
 #ifdef TEST_MODE
+    	Test();
 #endif
 
     }

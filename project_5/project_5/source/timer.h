@@ -37,5 +37,12 @@ void Init_SysTick(void);
  ************************************************/
 void mdelay(uint32_t msec);
 
+/*************************************************
+ * @brief
+ *   Return time since boot
+ ************************************************/
+uint64_t timerGetRunTimeMilliseconds(void);
+
+
 
 #endif /* TIMER_H_ */

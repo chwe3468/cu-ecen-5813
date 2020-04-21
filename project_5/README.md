@@ -7,13 +7,14 @@ Curry Buscher, Chutao Wei <br/>
 In documents folder: <br/>
 There are PES Project 5.pdf<br/>
 In source folder: <br/>
-main.c: main function wrapper has two versions. One runs the test script without command line, one require user to put in command in console.<br/>
-memory_utility.c/h: contains all memory utility functions.<br/>
-pattern_gen.c/h: generate random byte array using linear feedback shit register<br/>
+main.c: main function has 3 mode, debug mode, test mode and normal mode.<br/>
 led.c/h: contains RGB LED control functions<br/>
-time.c/h: contains only blocking delay function for now<br/>
+timer.c/h: contains timerstamp function and delay function<br/>
 gpio.c/h: contains gpio control functions<br/>
-logger.c/h: contains debug printing function<br/>
+logger.c/h: contains logging printing function with timetamp<br/>
+buffer.c/h: circular buffer implementation<br/>
+test.c/h: test code using uCUnit test.<br/>
+system.c/h: contains all code for uCUnit test.<br/>
 (see more details in PES Project 5.pdf) <br/>
 **Project Comments:** 
 Please use semihost <br/>
