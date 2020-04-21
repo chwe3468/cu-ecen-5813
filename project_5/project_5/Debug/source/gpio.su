@@ -1,0 +1,4 @@
+gpio.c:20:6:set_GPIO_Pinout	16	static
+gpio.c:25:6:clear_GPIO_Pinout	16	static
+gpio.c:30:6:toggle_GPIO_Pinout	16	static
+gpio.c:35:6:init_GPIO_Pin	24	static

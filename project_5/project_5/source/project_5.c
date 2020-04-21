@@ -50,9 +50,13 @@
 #include "state.h"
 #include "logger.h"
 #include "command_parser.h"
+#include "buffer.h"
+#include "test.h"
 /*
  * @brief   Application entry point.
  */
+
+#define UNITTEST 1
 
 //#define DEBUG_MODE
 #define NORMAL_MODE
@@ -82,6 +86,10 @@ int main(void) {
     turn_LED_green(on);
     mdelay(1000);
     turn_LED_green(off);
+
+    if (UNITTEST){
+    	Test();
+    }
 
     /* Enter an infinite loop */
     while(1)

@@ -1,0 +1,7 @@
+logger.c:26:10:loggerGetTimestamp	8	static
+logger.c:31:6:Log_enable	8	static
+logger.c:36:6:Log_disable	8	static
+logger.c:41:14:Log_status	8	static
+logger.c:46:6:Log_data	16	static
+logger.c:54:6:Log_string	16	static
+logger.c:62:6:Log_integer	16	static

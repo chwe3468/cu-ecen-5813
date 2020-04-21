@@ -1,0 +1,8 @@
+buffer.c:5:10:initBuffer	24	static
+buffer.c:20:10:verifyInit	24	static
+buffer.c:29:10:verifyValidPointer	16	static
+buffer.c:36:10:destroyBuffer	16	static
+buffer.c:41:10:addItem	16	static
+buffer.c:50:10:removeItem	16	static
+buffer.c:59:10:isFull	16	static
+buffer.c:66:10:isEmpty	16	static
