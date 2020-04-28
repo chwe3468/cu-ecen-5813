@@ -81,7 +81,7 @@ void Summary_task(void *threadp); // priority 2
 SemaphoreHandle_t xBinary_DAC;
 SemaphoreHandle_t xBinary_ADC;
 SemaphoreHandle_t xBinary_Summary;
-
+unsigned int Hundredmsec;
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -181,8 +181,13 @@ int main(void)
 void SwTimerCallback(TimerHandle_t xTimer)
 {
 	xSemaphoreGive(xBinary_DAC);
+	Hundredmsec++;
 }
+unsigned int timerGetRunTimeHundredmsec(void)
+{
 
+	return Hundredmsec;
+}
 /*!
  * @brief DAC task
  */

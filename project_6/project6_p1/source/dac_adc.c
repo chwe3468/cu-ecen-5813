@@ -11,7 +11,7 @@
 #include "fsl_debug_console.h"
 #include "MKL25Z4.h"
 #include "sin.h"
-
+#include "logger.h"
 /*******************************************************************************
  * Defines
  ******************************************************************************/
@@ -96,11 +96,13 @@ void DAC_ADC_Init(void)
 
 void DAC_Write(int i)
 {
+	LOG_DEBUG("DAC_Write\n");
 	DAC_SetBufferValue(DAC0, 0U, sin_lookup_table_uint16[i]);
 }
 
 void ADC_Read(int i)
 {
+	LOG_DEBUG("ADC_Read\n");
 	g_Adc16ConversionDoneFlag = false;
 	ADC16_SetChannelConfig(ADC0, DEMO_ADC16_CHANNEL_GROUP, &g_adc16ChannelConfigStruct);
 
@@ -109,11 +111,12 @@ void ADC_Read(int i)
 }
 void summary_Print(void)
 {
+	LOG_DEBUG("summary_Print\n");
 	PRINTF("DAC value\t ADC value\t \n");
 	int i;
 	for (i=0;i<NUM_POINTS;i++)
 	{
-		PRINTF("%d\t %d\t \n",sin_lookup_table_uint16[i],DAC_result[i]);
+		PRINTF("%d\t\t %d\t\t \n",sin_lookup_table_uint16[i],DAC_result[i]);
 	}
 
 }

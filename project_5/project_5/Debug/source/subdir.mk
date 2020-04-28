@@ -8,14 +8,11 @@ C_SRCS += \
 ../source/buffer.c \
 ../source/command_parser.c \
 ../source/gpio.c \
-../source/i2c.c \
 ../source/led.c \
 ../source/logger.c \
-../source/mma8451.c \
 ../source/mtb.c \
 ../source/project_5.c \
 ../source/semihost_hardfault.c \
-../source/state.c \
 ../source/test.c \
 ../source/timer.c \
 ../source/touch_sen.c 
@@ -25,14 +22,11 @@ OBJS += \
 ./source/buffer.o \
 ./source/command_parser.o \
 ./source/gpio.o \
-./source/i2c.o \
 ./source/led.o \
 ./source/logger.o \
-./source/mma8451.o \
 ./source/mtb.o \
 ./source/project_5.o \
 ./source/semihost_hardfault.o \
-./source/state.o \
 ./source/test.o \
 ./source/timer.o \
 ./source/touch_sen.o 
@@ -42,14 +36,11 @@ C_DEPS += \
 ./source/buffer.d \
 ./source/command_parser.d \
 ./source/gpio.d \
-./source/i2c.d \
 ./source/led.d \
 ./source/logger.d \
-./source/mma8451.d \
 ./source/mtb.d \
 ./source/project_5.d \
 ./source/semihost_hardfault.d \
-./source/state.d \
 ./source/test.d \
 ./source/timer.d \
 ./source/touch_sen.d 

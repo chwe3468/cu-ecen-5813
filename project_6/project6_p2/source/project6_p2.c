@@ -116,6 +116,8 @@ int main(void)
     DAC_ADC_DMA_Init();
     init_LED();
 
+    PRINTF("Hello Project 6 Problem 2\n");
+
     /* Create the Binary */
 	xBinary_DAC = xSemaphoreCreateBinary();
 	if(xBinary_DAC == NULL)
@@ -146,28 +148,28 @@ int main(void)
 	{
 		PRINTF("Cannot create xBinary_LED");
 	}
-
+	xSemaphoreGive(xBinary_LED);
 
     /* Create the task, storing the handle. */
     BaseType_t xReturned[4];
     TaskHandle_t xHandle[4] = {NULL};
-    xReturned[0] = xTaskCreate(DAC_task, "DAC_task",200,NULL,configMAX_PRIORITIES-1, &xHandle[0]);
+    xReturned[0] = xTaskCreate(DAC_task, "DAC_task",200,NULL,configMAX_PRIORITIES-2, &xHandle[0]);
     if (xReturned[0] != pdPASS)
     {
     	PRINTF("Cannot create DAC_task");
     }
-    xReturned[1] = xTaskCreate(ADC_task, "ADC_task",200,NULL,configMAX_PRIORITIES-2, &xHandle[1]);
+    xReturned[1] = xTaskCreate(ADC_task, "ADC_task",200,NULL,configMAX_PRIORITIES-3, &xHandle[1]);
     if (xReturned[1] != pdPASS)
     {
     	PRINTF("Cannot create ADC_task");
     }
-    xReturned[2] = xTaskCreate(DMA_task, "DMA_task",200,NULL,configMAX_PRIORITIES-3, &xHandle[2]);
+    xReturned[2] = xTaskCreate(DMA_task, "DMA_task",200,NULL,configMAX_PRIORITIES-4, &xHandle[2]);
     if (xReturned[1] != pdPASS)
     {
     	PRINTF("Cannot create DMA_task");
     }
 
-    xReturned[3] = xTaskCreate(DSP_task, "DSP_task",200,NULL,configMAX_PRIORITIES-4, &xHandle[3]);
+    xReturned[3] = xTaskCreate(DSP_task, "DSP_task",200,NULL,configMAX_PRIORITIES-5, &xHandle[3]);
     if (xReturned[1] != pdPASS)
     {
     	PRINTF("Cannot create DSP_task");
@@ -205,18 +207,23 @@ int main(void)
  */
 void SwTimerCallback(TimerHandle_t xTimer)
 {
+	taskENTER_CRITICAL();
 	xSemaphoreGive(xBinary_DAC);
 	Hundredmsec++;
 	if (timer_flag ==true)
 	{
 		if(Hundredmsec == target_Hundredmsec)
-		timer_flag = false;
-		turn_LED_blue(off);
-		xSemaphoreGive(xBinary_LED);
+		{
+			timer_flag = false;
+			turn_LED_blue(off);
+			xSemaphoreGive(xBinary_LED);
+		}
+
 	}
+	taskEXIT_CRITICAL();
 }
 
-uint32_t timerGetRunTimeHundredmsec(void)
+unsigned int timerGetRunTimeHundredmsec(void)
 {
 
 	return Hundredmsec;
@@ -285,6 +292,8 @@ void DMA_task(void *threadp)
 		if(xSemaphoreTake(xBinary_LED,1)==pdTRUE)
 		{
 			turn_LED_blue(on);
+			target_Hundredmsec = Hundredmsec+3;
+			timer_flag = true;
 		}
 		DMA_Transfer();
 		xSemaphoreGive(xBinary_DSP);

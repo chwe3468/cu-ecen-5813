@@ -20,8 +20,9 @@
 #include "fsl_dmamux.h"
 #include "MKL25Z4.h"
 #include "sin.h"
-
-
+#include "project6_p2.h"
+#include "math.h"
+#include "logger.h"
 /*******************************************************************************
  * Defines
  ******************************************************************************/
@@ -31,6 +32,7 @@
 #define DMA_CHANNEL 0
 #define DMA_SOURCE 63
 #define BUF_SIZE 64
+
 /*******************************************************************************
  * Global Variables
  ******************************************************************************/
@@ -44,8 +46,8 @@ volatile bool g_Transfer_Done = false;
 uint16_t ADC_buf[BUF_SIZE];
 uint16_t DSP_buf[BUF_SIZE];
 
-uint32_t DMA_start_time;
-uint32_t DMA_end_time;
+unsigned int DMA_start_time;
+unsigned int DMA_end_time;
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -78,6 +80,16 @@ uint16_t min(uint16_t arr[], uint32_t n)
             min = arr[i];
     return min;
 }
+// from https://www.programiz.com/c-programming/examples/standard-deviation
+uint16_t SD(uint16_t arr[], uint16_t mean,  uint32_t n)
+{
+    uint32_t variance = 0;
+    int i;
+    for (i = 0; i < 10; ++i)
+    	variance += pow(arr[i] - mean, 2);
+    return sqrt(variance / n);
+}
+
 // interrupt hanlder
 void ADC0_IRQHandler(void)
 {
@@ -130,11 +142,11 @@ void DAC_ADC_DMA_Init(void)
 #if defined(FSL_FEATURE_ADC16_HAS_CALIBRATION) && FSL_FEATURE_ADC16_HAS_CALIBRATION
     if (kStatus_Success == ADC16_DoAutoCalibration(ADC0))
     {
-        PRINTF("\r\nADC16_DoAutoCalibration() Done.");
+        //PRINTF("\r\nADC16_DoAutoCalibration() Done.");
     }
     else
     {
-        PRINTF("ADC16_DoAutoCalibration() Failed.\r\n");
+        //PRINTF("ADC16_DoAutoCalibration() Failed.\r\n");
     }
 #endif /* FSL_FEATURE_ADC16_HAS_CALIBRATION */
 
@@ -157,11 +169,13 @@ void DAC_ADC_DMA_Init(void)
 
 void DAC_Write(int i)
 {
+	LOG_DEBUG("DAC_Write\n");
 	DAC_SetBufferValue(DAC0, 0U, sin_lookup_table_uint16[i]);
 }
 
 void ADC_Read(int i)
 {
+	LOG_DEBUG("ADC_Read\n");
 	g_Adc16ConversionDoneFlag = false;
 	ADC16_SetChannelConfig(ADC0, DEMO_ADC16_CHANNEL_GROUP, &g_adc16ChannelConfigStruct);
 
@@ -171,22 +185,33 @@ void ADC_Read(int i)
 
 void DMA_Transfer(void)
 {
+	LOG_DEBUG("DMA_Transfer\n");
+	DMA_start_time = timerGetRunTimeHundredmsec();
     dma_transfer_config_t transferConfig;
     DMA_PrepareTransfer(&transferConfig, ADC_buf, sizeof(ADC_buf[0]),
     		DSP_buf, sizeof(DSP_buf[0]), sizeof(ADC_buf), kDMA_MemoryToMemory);
     DMA_SubmitTransfer(&g_DMA_Handle, &transferConfig, kDMA_EnableInterrupt);
     DMA_StartTransfer(&g_DMA_Handle);
     while (g_Transfer_Done != true);
+    DMA_end_time = timerGetRunTimeHundredmsec();
 }
 
 void DSP_Summary(uint8_t round_count)
 {
 	PRINTF("DSP Summary Report %d\t \n",round_count);
-	PRINTF("ADC value\t \n");
-	int i;
-	for (i=0;i<BUF_SIZE;i++)
-	{
-		PRINTF("%d\t \n",DSP_buf[i]);
-	}
+
+
+	uint16_t DSP_ave = average(DSP_buf, BUF_SIZE);
+	uint16_t DSP_max = max(DSP_buf, BUF_SIZE);
+	uint16_t DSP_min = min(DSP_buf, BUF_SIZE);
+	uint16_t standard_deviation = SD(DSP_buf,DSP_ave,BUF_SIZE);
+
+	float DSP_ave_f = 3.3/4096*DSP_ave;
+	float DSP_max_f = 3.3/4096*DSP_max;
+	float DSP_min_f = 3.3/4096*DSP_min;
+	float standard_deviation_f = 3.3/4096*standard_deviation;
+	PRINTF("Ave\t\tMax\t\tMin\t\tSD\t\t \n");
+	PRINTF("%f\t%f\t%f\t%f\t \n",DSP_ave_f,DSP_max_f,DSP_min_f,standard_deviation_f);
+
 	PRINTF("\t \n");
 }

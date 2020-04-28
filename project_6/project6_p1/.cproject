@@ -77,6 +77,8 @@
 									<listOptionValue builtIn="false" value="__USE_CMSIS"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value=""/>
+									<listOptionValue builtIn="false" value="INCLUDE_LOGGING"/>
+									<listOptionValue builtIn="false" value="INCLUDE_LOG_DEBUG=1"/>
 								</option>
 								<option id="com.crt.advproject.gcc.fpu.158900" name="Floating point" superClass="com.crt.advproject.gcc.fpu" useByScannerDiscovery="true" value="com.crt.advproject.gcc.fpu.none" valueType="enumerated"/>
 								<option id="com.crt.advproject.gcc.thumb.880101989" name="Thumb mode" superClass="com.crt.advproject.gcc.thumb" useByScannerDiscovery="false" value="true" valueType="boolean"/>
