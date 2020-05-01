@@ -37,6 +37,6 @@ void init_table_uint16()
 	for(int i=0; i<NUM_POINTS; i++){
 		sin_lookup_table_uint16[i]=(uint16_t)(HALF_PEAK_TO_PEAK*sin(d)+AVERAGE_VOLT);
 		d=d+increment;
-		LOG_DEBUG("Table init %d, %f",i,sin_lookup_table_uint16[i]);
+		//LOG_DEBUG("Table init %d, %f",i,sin_lookup_table_uint16[i]);
 	}
 }

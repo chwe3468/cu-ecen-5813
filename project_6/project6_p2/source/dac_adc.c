@@ -189,7 +189,7 @@ void DMA_Transfer(void)
 	DMA_start_time = timerGetRunTimeHundredmsec();
     dma_transfer_config_t transferConfig;
     DMA_PrepareTransfer(&transferConfig, ADC_buf, sizeof(ADC_buf[0]),
-    		DSP_buf, sizeof(DSP_buf[0]), sizeof(ADC_buf), kDMA_MemoryToMemory);
+    		DSP_buf, sizeof(DSP_buf[0]),2*BUF_SIZE, kDMA_MemoryToMemory);
     DMA_SubmitTransfer(&g_DMA_Handle, &transferConfig, kDMA_EnableInterrupt);
     DMA_StartTransfer(&g_DMA_Handle);
     while (g_Transfer_Done != true);
@@ -199,8 +199,8 @@ void DMA_Transfer(void)
 void DSP_Summary(uint8_t round_count)
 {
 	PRINTF("DSP Summary Report %d\t \n",round_count);
-
-
+	PRINTF("DMA start:\t %d\t DMA end:\t %d\n",DMA_start_time,DMA_end_time);
+	PRINTF("DMA delta:\t %d\t \n", DMA_end_time-DMA_start_time);
 	uint16_t DSP_ave = average(DSP_buf, BUF_SIZE);
 	uint16_t DSP_max = max(DSP_buf, BUF_SIZE);
 	uint16_t DSP_min = min(DSP_buf, BUF_SIZE);

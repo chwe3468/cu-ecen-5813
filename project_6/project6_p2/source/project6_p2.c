@@ -251,7 +251,7 @@ void DAC_task(void *threadp)
 		}
 
 		xSemaphoreGive(xBinary_ADC);
-		if(i==50) i = 0;
+		if(i==49) i = 0;
 		else i++;
 
 		if(round_count == 5)vTaskSuspend(NULL);
@@ -269,7 +269,7 @@ void ADC_task(void *threadp)
 		xSemaphoreTake(xBinary_ADC,portMAX_DELAY);
 		ADC_Read(i);
 
-		if(i==64)
+		if(i==63)
 		{
 			xSemaphoreGive(xBinary_DMA);
 
